@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Projeto FastAPI</title>
+
+    <link rel="stylesheet" href="/CSS/styles.css">
+
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>Atividade 2.5: Cookies e Sessões com Flask</h1>
+
+        {% if saudacao %}
+            <h2>{{ saudacao }}</h2>
+        {% endif %}
+
+        {% if visitas %}
+            <p>
+                Esta página foi acessada
+                <strong>{{ visitas }}</strong>
+                vezes.
+            </p>
+        {% endif %}
+
+        {% if usuario_logado %}
+            <p>
+                Usuário logado:
+                <strong>{{ usuario_logado }}</strong>
+            </p>
+        {% endif %}
+
+        <hr>
+
+        <h2>Salvar cookie</h2>        
+
+        {% if usuario_logado %}
+
+            <p>
+                <a href="/nome/{{ usuario_logado }}">
+                    /nome/{{ usuario_logado }}
+                </a>
+            </p>
+
+        {% elif perfil %}
+
+            <p>
+                <a href="/nome/{{ usuario }}">
+                    /nome/{{ usuario }}
+                </a>
+            </p>
+
+        {% else %}
+
+            <p>
+                <a href="/nome/Visitante">
+                    /nome/Visitante
+                </a>
+            </p>
+
+        {% endif %}
+
+        <hr>
+
+        <!-- <h2>Autenticação</h2> -->
+
+        <div class="links">
+
+            <a href="/api/">Home</a>
+
+            <a href="/api/login">Login</a>
+
+            <a href="/api/perfil">Perfil</a>
+
+            <a href="/api/logout">Logout</a>
+
+        </div>
+
+        <!-- ====================================== -->
+        <!-- LOGIN -->
+        <!-- ====================================== -->
+
+        {% if mostrar_login %}
+
+            <div class="login-box">
+
+                <h2>Login</h2>
+
+                {% if erro %}
+                    <p class="erro">{{ erro }}</p>
+                {% endif %}
+
+                <form action="/api/login" method="POST">
+
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Usuário"
+                        required
+                    >
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Senha"
+                        required
+                    >
+
+                    <button type="submit">
+                        Entrar
+                    </button>
+
+                </form>
+
+                <div class="credenciais">
+
+                    <p><strong>Usuário:</strong> admin</p>
+                    <p><strong>Senha:</strong> admin</p>
+
+                </div>
+
+            </div>
+
+        {% endif %}
+
+        <!-- ====================================== -->
+        <!-- PERFIL -->
+        <!-- ====================================== -->
+
+        {% if perfil %}
+
+            <div class="perfil">
+
+                <h2>Perfil do Usuário</h2>
+
+                <p>
+                    Bem-vindo,
+                    <strong>{{ usuario }}</strong>
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+    <script src="/JS/scripts.js"></script>
+
+</body>
+</html>
