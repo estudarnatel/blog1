@@ -292,56 +292,6 @@ def logout(request: Request):
 
     return response
 
-# ======================================================
-# API BLOG
-# ======================================================
-
-@app.get("/api/blog", response_model=List[Blog])
-def get_blog():
-
-    try:
-
-        blogs = database.get_blogs()
-
-        return [
-            {
-                "Action": r.Action,
-                "Message": r.Message,
-                "Author": r.Author,
-            }
-            for r in blogs
-        ]
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# ======================================================
-# API BLOG POST
-# ======================================================
-
-@app.post("/api/blog")
-def create_blog(payload: dict):
-
-    try:
-
-        dado = {
-            "Action": payload.get("action"),
-            "Message": payload.get("message"),
-            "Author": payload.get("author"),
-        }
-
-        sucesso = database.insert_blog(dado)
-
-        if not sucesso:
-            raise HTTPException(
-                status_code=500,
-                detail="Erro ao salvar no banco"
-            )
-
-        return {"message": "Registro inserido com sucesso"}
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
 
 # ======================================================
 # MANGUM
