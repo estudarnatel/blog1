@@ -99,7 +99,7 @@ PASSWORD = "admin"
 # PÁGINA INICIAL
 # ======================================================
 
-@app.get("/api/", response_class=HTMLResponse)
+@app.get("/", response_class=HTMLResponse)
 def home(request: Request):
 
     # ==========================================
@@ -156,7 +156,7 @@ def home(request: Request):
 # SALVAR NOME NO COOKIE
 # ======================================================
 
-@app.get("/api/nome/{nome}")
+@app.get("/nome/{nome}")
 def salvar_nome(nome: str):
 
     response = RedirectResponse(
@@ -175,7 +175,7 @@ def salvar_nome(nome: str):
 # LOGIN - FORMULÁRIO
 # ======================================================
 
-@app.get("/api/login", response_class=HTMLResponse)
+@app.get("/login", response_class=HTMLResponse)
 def login_form(request: Request):
 
     return templates.TemplateResponse(
@@ -191,7 +191,7 @@ def login_form(request: Request):
 # LOGIN - PROCESSA
 # ======================================================
 
-@app.post("/api/login")
+@app.post("/login")
 def login(
     request: Request,
     username: str = Form(...),
@@ -212,7 +212,7 @@ def login(
 
         # redireciona
         response = RedirectResponse(
-            url="/api/perfil",
+            url="/perfil",
             status_code=302
         )
 
@@ -237,14 +237,14 @@ def login(
 # PERFIL (PROTEGIDA)
 # ======================================================
 
-@app.get("/api/perfil", response_class=HTMLResponse)
+@app.get("/perfil", response_class=HTMLResponse)
 def perfil(request: Request):
 
     user = request.session.get("user")
 
     if not user:
         return RedirectResponse(
-            url="/api/login",
+            url="/login",
             status_code=302
         )
 
@@ -275,7 +275,7 @@ def perfil(request: Request):
 # LOGOUT
 # ======================================================
 
-@app.get("/api/logout")
+@app.get("/logout")
 def logout(request: Request):
 
     # limpa sessão
@@ -283,7 +283,7 @@ def logout(request: Request):
 
     # redireciona
     response = RedirectResponse(
-        url="/api/login",
+        url="/login",
         status_code=302
     )
 
