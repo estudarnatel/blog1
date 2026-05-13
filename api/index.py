@@ -16,7 +16,7 @@ from fastapi.templating import Jinja2Templates
 
 from typing import List
 from models import Aprovado, Blog
-import database
+# import database
 
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
